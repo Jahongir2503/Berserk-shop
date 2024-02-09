@@ -2,74 +2,39 @@
   <div class="main-page">
     <div class="main-content">
       <h2 class="section-title">Popular Manga</h2>
-
-
-      <div class="product-container">
-
-        <div class="product-card">
-          <img src="@/assets/manga.jpg" alt="Manga Cover" class="product-image"/>
-          <div class="product-info">
-            <h3 class="product-title">Manga Title 1</h3>
-            <p class="product-description">Description of the manga...</p>
-            <p class="product-price">$19.99</p>
-            <button class="add-to-cart-button">Add to Cart</button>
-          </div>
-        </div>
-
-
-        <div class="product-card">
-          <img src="@/assets/manga2.jpg" alt="Manga Cover" class="product-image"/>
-          <div class="product-info">
-            <h3 class="product-title">Manga Title 2</h3>
-            <p class="product-description">Description of the manga...</p>
-            <p class="product-price">$24.99</p>
-            <button class="add-to-cart-button">Add to Cart</button>
-          </div>
-        </div>
-
-        <div class="product-card">
-          <img src="@/assets/manga3.jpg" alt="Manga Cover" class="product-image"/>
-          <div class="product-info">
-            <h3 class="product-title">Manga Title 3</h3>
-            <p class="product-description">Description of the manga...</p>
-            <p class="product-price">$29.99</p>
-            <button class="add-to-cart-button">Add to Cart</button>
-          </div>
-        </div>
-
-        <div class="product-card">
-          <img src="@/assets/manga4.jpg" alt="Manga Cover" class="product-image"/>
-          <div class="product-info">
-            <h3 class="product-title">Manga Title 4</h3>
-            <p class="product-description">Description of the manga...</p>
-            <p class="product-price">$22.99</p>
-            <button class="add-to-cart-button">Add to Cart</button>
-          </div>
-        </div>
-
-        <div class="product-card">
-          <img src="@/assets/manga5.jpg" alt="Manga Cover" class="product-image"/>
-          <div class="product-info">
-            <h3 class="product-title">Manga Title 5</h3>
-            <p class="product-description">Description of the manga...</p>
-            <p class="product-price">$34.99</p>
-            <button class="add-to-cart-button">Add to Cart</button>
-          </div>
-        </div>
-        <div class="product-card">
-          <img src="@/assets/manga6.jpg" alt="Manga Cover" class="product-image"/>
-          <div class="product-info">
-            <h3 class="product-title">Manga Title 5</h3>
-            <p class="product-description">Description of the manga...</p>
-            <p class="product-price">$34.99</p>
-            <button class="add-to-cart-button">Add to Cart</button>
-          </div>
-        </div>
-      </div>
+      <ProductList :products="products" @add-to-cart="addToCart"/>
     </div>
   </div>
 </template>
 
+<script>
+import ProductList from '@/components/ProductList.vue';
+
+export default {
+  components: {
+    ProductList,
+  },
+  data() {
+    return {
+      products: [
+        {
+          id: 1,
+          title: 'Berserk Tom:27',
+          description: 'Popular manga by mangaki Kantaro Miura..',
+          price: 19.99,
+          image: require('@/assets/manga.jpg'),
+        },
+        // Другие продукты...
+      ],
+    };
+  },
+  methods: {
+    addToCart(product) {
+      console.log('Added to cart:', product);
+    },
+  },
+};
+</script>
 <style scoped>
 .main-page {
   background: url('@/assets/berserk-kleymo.jpg') no-repeat center center fixed;
@@ -97,6 +62,12 @@
   margin-bottom: 1rem;
   background-color: #333;
   position: relative;
+  overflow: hidden;
+  transition: transform 0.3s;
+}
+
+.product-card:hover {
+  transform: scale(1.05);
 }
 
 .product-image {
@@ -115,15 +86,18 @@
 .product-title {
   font-size: 1.5rem;
   margin-bottom: 0.5rem;
+  color: #fff;
 }
 
 .product-description {
   margin-bottom: 0.5rem;
+  color: #ddd;
 }
 
 .product-price {
   font-size: 1rem;
   margin-bottom: 0.5rem;
+  color: #fff;
 }
 
 .add-to-cart-button {
